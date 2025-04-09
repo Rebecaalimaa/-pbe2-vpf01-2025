@@ -13,22 +13,23 @@ model Cliente{
   logradouro String
   referencia String? @db.VarChar(20) 
   bairro String
+  numero Int
   pedidos Pedido[]
 }
 
 model Pedido{
   id Int @id @default(autoincrement())
   clienteId Int
-  data DateTime @default(now())
-  hora DateTime @default(now())
+  data DateTime? @default(now())
+  hora DateTime? @default(now())
   valor Decimal @db.Decimal(10,2)
-  cliente Cliente @relation(fields: [clienteId], references: [id])
+  cliente Cliente[]
 }
 
 model Pizza{
   id Int @id @default(autoincrement())
   nome String
-  descricao String @db.VarChar(20)
+  descricao String? @db.VarChar(100)
   valor Decimal @db.Decimal(10,2)
 }
 

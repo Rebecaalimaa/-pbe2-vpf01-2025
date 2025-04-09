@@ -27,7 +27,7 @@ const readOne = async (req, res) => {
                 valor: true
             },
             where: {
-                id: req.params.id
+                id: Number(req.params.id)
             }
         });
         return res.json(pizza);
@@ -40,7 +40,7 @@ const update = async (req, res) => {
     try {
         const pizza = await prisma.pizza.update({
             where: {
-                id: req.params.id
+                id: Number(req.params.id)
             },
             data: req.body
         });
@@ -54,7 +54,7 @@ const remove = async (req, res) => {
     try {
         await prisma.pizza.delete({
             where: {
-                id: req.params.id
+                id: Number(req.params.id)
             }
         });
         return res.status(204).send();
