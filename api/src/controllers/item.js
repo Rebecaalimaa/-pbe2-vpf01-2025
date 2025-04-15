@@ -2,24 +2,25 @@ const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 
 const create = async (req, res) => {
+    req.body.sub_total = req.body.pizza.preco * req.body.quantidade;
     try {
-        const cliente = await prisma.cliente.create({
+        const item = await prisma.item.create({
             data: req.body
         });
-        return res.status(201).json(cliente);
+        return res.status(201).json(item);
     } catch (error) {
         return res.status(400).json({ error: error.message });
     }
 }
 
 const read = async (req, res) => {
-    const cliente = await prisma.cliente.findMany();
-    return res.json(cliente);
+    const item = await prisma.item.findMany();
+    return res.json(item);
 }
 
 const readOne = async (req, res) => {
     try {
-        const cliente = await prisma.cliente.findUnique({
+        const item = await prisma.item.findUnique({
             select: {
                 id: true,
                 nome: true,
@@ -28,14 +29,11 @@ const readOne = async (req, res) => {
                 bairro: true,
             },
             where: {
-                id: Number(req.params.id)
+                itens_id: Number(req.params.id)
 
-            },
-            include: {
-                pedidos: true
             }
         });
-        return res.json(cliente);
+        return res.json(item);
     } catch (error) {
         return res.status(400).json({ error: error.message });
     }
@@ -43,13 +41,13 @@ const readOne = async (req, res) => {
 
 const update = async (req, res) => {
     try {
-        const cliente = await prisma.cliente.update({
+        const item = await prisma.item.update({
             where: {
-                id: Number(req.params.id)
+                itens_id: Number(req.params.id)
             },
             data: req.body
         });
-        return res.status(202).json(cliente);
+        return res.status(202).json(item);
     } catch (error) {
         return res.status(400).json({ error: error.message });
     }
@@ -57,9 +55,9 @@ const update = async (req, res) => {
 
 const remove = async (req, res) => {
     try {
-        await prisma.cliente.delete({
+        await prisma.item.delete({
             where: {
-                id: Number(req.params.id)
+                itens_id : Number(req.params.id)
             }
         });
         return res.status(204).send();

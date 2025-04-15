@@ -28,7 +28,7 @@ const readOne = async (req, res) => {
                 valor: true,
             },
             where: {
-                id: Number(req.params.id)
+                pedido_id: Number(req.params.id)
             }
         });
         return res.json(pedido);
@@ -41,7 +41,7 @@ const update = async (req, res) => {
     try {
         const pedido = await prisma.pedido.update({
             where: {
-                id: Number(req.params.id)
+                pedido_id: Number(req.params.id)
             },
             data: req.body
         });
@@ -55,7 +55,7 @@ const remove = async (req, res) => {
     try {
         await prisma.pedido.delete({
             where: {
-                id: Number(req.params.id)
+                pedido_id: Number(req.params.id)
             }
         });
         return res.status(204).send();
