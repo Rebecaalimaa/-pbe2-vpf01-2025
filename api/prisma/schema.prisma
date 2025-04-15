@@ -9,11 +9,13 @@ datasource db {
 
 model Cliente{
   id Int @id @default(autoincrement())
-  nome String
-  logradouro String
+  nome String @db.VarChar(20) 
+  telefone String @db.VarChar(20) 
+  logradouro String @db.VarChar(20) 
+  numero String @db.VarChar(20)  
   referencia String? @db.VarChar(20) 
-  bairro String
-  numero Int
+  bairro String @db.VarChar(20) 
+  
   pedidos Pedido[]
 }
 
