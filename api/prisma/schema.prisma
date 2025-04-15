@@ -42,7 +42,7 @@ model Item{
    itens_id Int @id @default(autoincrement())
    pedido_id Int
    pizza_id Int
-   quatidade Int
+   quantidade Int
    valor Decimal @db.Decimal(10,2) @default(0)
    sub_total Decimal @db.Decimal(10,2)
    pedido Pedido @relation(fields: [pedido_id], references: [pedido_id], onDelete: Cascade)

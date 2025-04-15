@@ -20,16 +20,8 @@ const read = async (req, res) => {
 const readOne = async (req, res) => {
     try {
         const cliente = await prisma.cliente.findUnique({
-            select: {
-                id: true,
-                nome: true,
-                logradouro: true,
-                referencia: true,
-                bairro: true,
-            },
             where: {
-                id: Number(req.params.id)
-
+                cliente_id: Number(req.params.id)
             },
             include: {
                 pedidos: true
@@ -45,7 +37,7 @@ const update = async (req, res) => {
     try {
         const cliente = await prisma.cliente.update({
             where: {
-                id: Number(req.params.id)
+                cliente_id: Number(req.params.id)
             },
             data: req.body
         });
@@ -59,7 +51,7 @@ const remove = async (req, res) => {
     try {
         await prisma.cliente.delete({
             where: {
-                id: Number(req.params.id)
+                cliente_id: Number(req.params.id)
             }
         });
         return res.status(204).send();

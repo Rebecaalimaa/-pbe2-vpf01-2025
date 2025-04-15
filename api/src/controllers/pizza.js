@@ -20,12 +20,6 @@ const read = async (req, res) => {
 const readOne = async (req, res) => {
     try {
         const pizza = await prisma.pizza.findUnique({
-            select: {
-                id: true,
-                nome: true,
-                descricao: true,
-                valor: true
-            },
             where: {
                 pizza_id: Number(req.params.id)
             }

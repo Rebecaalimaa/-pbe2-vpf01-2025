@@ -2,7 +2,7 @@ const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 
 const create = async (req, res) => {
-    req.body.sub_total = req.body.pizza.preco * req.body.quantidade;
+    req.body.sub_total = req.body.pizza.valor * req.body.quantidade;
     try {
         const item = await prisma.item.create({
             data: req.body
@@ -21,13 +21,6 @@ const read = async (req, res) => {
 const readOne = async (req, res) => {
     try {
         const item = await prisma.item.findUnique({
-            select: {
-                id: true,
-                nome: true,
-                logradouro: true,
-                referencia: true,
-                bairro: true,
-            },
             where: {
                 itens_id: Number(req.params.id)
 
